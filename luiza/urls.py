@@ -24,6 +24,8 @@ from rest_framework.authtoken.views import obtain_auth_token
 from user.api.viewsets import UserViewset
 from report_card_grades.api.viewsets import ReportCardViewset
 from scheduler.api.viewsets import SchedulerViewset
+from classes.api.viewsets import VideoViewset
+from school_year.api.viewsets import SchoolYearViewset
 
 
 router = routers.DefaultRouter()
@@ -41,6 +43,16 @@ router.register(
     r'scheduler', 
     SchedulerViewset, 
     basename='Scheduler'
+)
+router.register(
+    r'school_year', 
+    SchoolYearViewset, 
+    basename='SchoolYear'
+)
+router.register(
+    r'video', 
+    VideoViewset, 
+    basename='Video'
 )
 
 urlpatterns = [

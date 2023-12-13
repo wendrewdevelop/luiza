@@ -58,21 +58,3 @@ class Scheduler(models.Model):
         verbose_name = 'scheduler'
         verbose_name_plural = 'schedulers'
         db_table = 'tb_scheduler'
-
-    @property
-    def can_see_item(self, user):
-        if self.visibility == 'private':
-            # Only the user who created the item can see it
-            return user == self.created_by
-        elif self.visibility == 'public':
-            # Everyone can see the item
-            return True
-        elif self.visibility == 'for_students':
-            # Only students can see the item
-            return hasattr(user, 'student')  # Assuming you have a 'Student' related model
-        elif self.visibility == 'for_teacher':
-            # Only teachers can see the item
-            return hasattr(user, 'teacher')  # Assuming you have a 'Teacher' related model
-        else:
-            # Handle other cases or raise an exception if needed
-            return False

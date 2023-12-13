@@ -43,7 +43,9 @@ DEFAULT_APPS = [
 PROJECT_APPS = [
     'user',
     'report_card_grades',
-    'scheduler'
+    'scheduler',
+    'classes',
+    'school_year'
 ]
 
 THIRD_PARTY_APPS= [

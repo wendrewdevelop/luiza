@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AbstractUser
 from rest_framework.authtoken.models import Token
 from .managers import CustomUserManager
+from school_year.models import SchoolYear
 
 
 class User(AbstractUser):
@@ -75,20 +76,6 @@ class Student(models.Model):
         After user create, edit register on this model.    
     """
 
-    STUDENT_SCHOOL_YEAR = [
-        ('1a', 'Primeiro Ano'),
-        ('2a', 'Segundo Ano'),
-        ('3a', 'Terceiro Ano'),
-        ('4a', 'Quarto Ano'),
-        ('5a', 'Quinto Ano'),
-        ('6a', 'Sexto Ano'),
-        ('7a', 'Sétimo Ano'),
-        ('8a', 'Oitavo Ano'),
-        ('9a', 'Nono Ano'),
-        ('1c', 'Primeiro Colegial'),
-        ('2c', 'Segundo Colegial'),
-        ('3c', 'Terceiro Colegial')
-    ]
     STUDENT_STATUS_LIST = [
         ('active', 'Ativo'),
         ('graduated', 'Graduado'),
@@ -100,10 +87,9 @@ class Student(models.Model):
         on_delete=models.CASCADE, 
         primary_key=True
     )
-    school_year = models.CharField(
-        'Ano escolar',
-        max_length=60,
-        choices=STUDENT_SCHOOL_YEAR,
+    school_year = models.ForeignKey(
+        SchoolYear,
+        on_delete=models.PROTECT,
         null=True,
         blank=True
     )
