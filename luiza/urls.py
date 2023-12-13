@@ -23,6 +23,7 @@ from rest_framework_jwt.views import refresh_jwt_token
 from rest_framework.authtoken.views import obtain_auth_token
 from user.api.viewsets import UserViewset
 from report_card_grades.api.viewsets import ReportCardViewset
+from scheduler.api.viewsets import SchedulerViewset
 
 
 router = routers.DefaultRouter()
@@ -35,6 +36,11 @@ router.register(
     r'reports_card', 
     ReportCardViewset, 
     basename='ReportCard'
+)
+router.register(
+    r'scheduler', 
+    SchedulerViewset, 
+    basename='Scheduler'
 )
 
 urlpatterns = [

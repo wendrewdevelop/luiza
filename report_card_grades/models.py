@@ -3,23 +3,10 @@ from user.models import User
 
 
 class ReportCard(models.Model):
-    ...
-    """
-        user = get_object_or_404(User, email=email)
-        if self.request.user.user_type == 'student':
-            return Response({'error': 'Você não tem autorização para realizar essa ação.'}, status=status.HTTP_403_FORBIDDEN)
-        student = get_object_or_404(Student, user=user)
-
-        report_card = ReportCard.objects.create(
-            student = student,
-            ...
-        )
-    """
-
     student = models.ForeignKey(
         User,
-        verbose_name='Agente responsável por resolver',
-        on_delete=models.CASCADE,
+        verbose_name='Aluno',
+        on_delete=models.PROTECT,
         blank=True,
         null=True,
     )

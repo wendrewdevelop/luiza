@@ -89,6 +89,11 @@ class Student(models.Model):
         ('2c', 'Segundo Colegial'),
         ('3c', 'Terceiro Colegial')
     ]
+    STUDENT_STATUS_LIST = [
+        ('active', 'Ativo'),
+        ('graduated', 'Graduado'),
+        ('inactive', 'Inativo')
+    ]
 
     user = models.OneToOneField(
         User, 
@@ -102,6 +107,14 @@ class Student(models.Model):
         null=True,
         blank=True
     )
+    status = models.CharField(
+        'Ano escolar',
+        max_length=60,
+        choices=STUDENT_STATUS_LIST,
+        null=True,
+        blank=True,
+        default='active'
+    )
 
     def __str__(self):
         return f"Student: {self.user.email}"
@@ -111,6 +124,11 @@ class Teacher(models.Model):
     """
         After user create, edit register on this model.    
     """
+
+    TEACHER_STATUS_LIST = [
+        ('active', 'Ativo'),
+        ('inactive', 'Inativo')
+    ]
 
     user = models.OneToOneField(
         User, 
@@ -123,6 +141,14 @@ class Teacher(models.Model):
         null=True,
         blank=True
     )
+    status = models.CharField(
+        'Ano escolar',
+        max_length=60,
+        choices=TEACHER_STATUS_LIST,
+        null=True,
+        blank=True,
+        default='active'
+    )
 
     def __str__(self):
         return f"Teacher: {self.user.email}"
@@ -132,6 +158,11 @@ class Admin(models.Model):
     """
         After user create, edit register on this model.    
     """
+
+    ADMIN_STATUS_LIST = [
+        ('active', 'Ativo'),
+        ('inactive', 'Inativo')
+    ]
 
     user = models.OneToOneField(
         User, 
@@ -143,6 +174,14 @@ class Admin(models.Model):
         max_length=100,
         null=True,
         blank=True
+    )
+    status = models.CharField(
+        'Ano escolar',
+        max_length=60,
+        choices=ADMIN_STATUS_LIST,
+        null=True,
+        blank=True,
+        default='active'
     )
 
     def __str__(self):

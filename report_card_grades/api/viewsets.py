@@ -1,16 +1,11 @@
-import json
-from django.contrib.auth.hashers import make_password
-from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.decorators import action
-from rest_framework import filters, status
-from rest_framework.permissions import IsAuthenticated
+from rest_framework import status
 from rest_framework.authentication import TokenAuthentication
 from report_card_grades.models import ReportCard
 from report_card_grades.api.serializers import ReportCardSerializer
 from user.permissions import UserPermission
-from user.models import User, Student, Teacher
+from user.models import User
 
 
 class ReportCardViewset(ModelViewSet):
@@ -22,9 +17,9 @@ class ReportCardViewset(ModelViewSet):
     def get_queryset(self):
         user_id = self.request.query_params.get('student_id', None)
         queryset = ReportCard.objects.all()
+
         if user_id:
             queryset = queryset.filter(student_id=user_id)
-
         return queryset
     
     def create(self, request, *args, **kwargs):
