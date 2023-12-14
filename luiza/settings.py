@@ -45,7 +45,8 @@ PROJECT_APPS = [
     'report_card_grades',
     'scheduler',
     'classes',
-    'school_year'
+    'school_year',
+    'live'
 ]
 
 THIRD_PARTY_APPS= [
@@ -167,3 +168,9 @@ AUTHENTICATION_BACKENDS = [
     'luiza.auth.EmailBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
+}

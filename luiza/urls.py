@@ -26,6 +26,7 @@ from report_card_grades.api.viewsets import ReportCardViewset
 from scheduler.api.viewsets import SchedulerViewset
 from classes.api.viewsets import VideoViewset
 from school_year.api.viewsets import SchoolYearViewset
+from live.urls import urlpatterns as livestream_urls
 
 
 router = routers.DefaultRouter()
@@ -58,5 +59,6 @@ router.register(
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include(router.urls)),
+    path('livestream/', include('live.urls')),
     path('auth/login/', obtain_auth_token)
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>WebSocket Test</title>
+    </head>
+    <body>
+        <h1>WebSocket Test</h1>
+        <img id="videoFrame" width="640" height="480" alt="Video Frame">
+        <script>
+            const socket = new WebSocket("ws://localhost:8000/ws/stream/");
+
+            socket.onmessage = function(event) {
+                const frameData = event.data;
+                document.getElementById("videoFrame").src = "data:image/jpeg;base64," + frameData;
+            };
+        </script>
+    </body>
+</html>
