@@ -6,9 +6,10 @@ from user.permissions import UserPermission
 
 class VideoViewset(ModelViewSet):
     serializer_class = VideoSerializer
-    permission_classes = [UserPermission]
+    # permission_classes = [UserPermission]
 
     def get_queryset(self):
+        # if self.request.user
         return Video.objects.all()
     
     def list(self, request, *args, **kwargs):

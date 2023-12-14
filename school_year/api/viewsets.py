@@ -10,7 +10,7 @@ from user.permissions import UserPermission
 
 class SchoolYearViewset(ModelViewSet):
     serializer_class = SchoolYearSerializer
-    permission_classes = [UserPermission]
+    # permission_classes = [UserPermission]
 
     def get_queryset(self):
         return SchoolYear.objects.all()
