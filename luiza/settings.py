@@ -46,7 +46,8 @@ PROJECT_APPS = [
     'scheduler',
     'classes',
     'school_year',
-    'live'
+    'live',
+    'rules'
 ]
 
 THIRD_PARTY_APPS= [

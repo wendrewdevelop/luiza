@@ -4,7 +4,7 @@ from live.api.viewsets import StreamAPI
 
 urlpatterns = [
     path(
-        r'api/stream/$', 
+        'api/stream/', 
         StreamAPI.as_view(), 
         name='stream-api'
     ),
