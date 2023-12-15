@@ -6,13 +6,14 @@ from report_card_grades.models import ReportCard
 from report_card_grades.api.serializers import ReportCardSerializer
 from user.permissions import UserPermission
 from user.models import User
+from rules.models import Rules
 
 
 class ReportCardViewset(ModelViewSet):
     queryset = ReportCard.objects.all()
     serializer_class = ReportCardSerializer
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [UserPermission]
+    # authentication_classes = [TokenAuthentication]
+    # permission_classes = [UserPermission]
 
     def get_queryset(self):
         user_id = self.request.query_params.get('student_id', None)
@@ -29,10 +30,16 @@ class ReportCardViewset(ModelViewSet):
 
         if self.request.user.user_type == 'student':
             return Response({'error': 'Você não tem autorização para realizar essa ação.'}, status=status.HTTP_403_FORBIDDEN)
+        
+        grade_average_rule = Rules.objects.filter(
+            rule_type='grade_average'
+        ).first()
 
-        report_card_instance = ReportCard.objects.create(
-            student=student,
-            grade=data['grade']
-        )
-        serializer = ReportCardSerializer(report_card_instance)
-        return Response(serializer.data)
+        print(f'GRADE AVERAGE::: {grade_average_rule}')
+
+        # report_card_instance = ReportCard.objects.create(
+        #     student=student,
+        #     grade=data['grade']
+        # )
+        # serializer = ReportCardSerializer(report_card_instance)
+        # return Response(serializer.data)

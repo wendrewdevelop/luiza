@@ -4,7 +4,6 @@ from rest_framework.decorators import action
 from rules.models import Rules
 from rules.api.serializers import RuleSerializer
 from user.permissions import UserPermission
-from luiza.pipeline import rules_pipeline
 
 
 """
@@ -29,12 +28,24 @@ class RuleViewset(ModelViewSet):
         return Rules.objects.all()
 
     @action(detail=False, methods=['POST'])
-    def grade_arrangement(self, request, *args, **kwargs):
+    def basic_rules(self, request, *args, **kwargs):
         data = request.data
         rule_type = data.get('rule_type')
-        arrangement = {f"{rule_type}": f"{data.get('rule_action')}"}
-        description = 'Regra criada para definir se as notas serão bimestrais, semestrais ou trimestrais.'
+        rule_action = data.get('rule_action')
+        arrangement = {f"{rule_type}": f"{rule_action}"}
+        description = None
 
-        instance = rules_pipeline[rule_type](arrangement, rule_type, description)
+        match rule_type:
+            case 'grade_arrangement':
+                description = 'Regra criada para definir se as notas serão bimestrais, semestrais ou trimestrais.'
+            case 'grade_average':
+                description = 'Regra criada para definir a nota média.'
+
+        instance = Rules.objects.create(
+            rule_type=rule_type,
+            rule_description=description,
+            rule_action=arrangement
+        )
+        instance.save()
         
-        return Response({'Message': instance})
+        return Response({'Message': 'Regra criada com sucesso!'})

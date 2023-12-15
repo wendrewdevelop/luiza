@@ -28,6 +28,7 @@ from classes.api.viewsets import VideoViewset
 from school_year.api.viewsets import SchoolYearViewset
 from live.urls import urlpatterns as livestream_urls
 from rules.api.viewsets import RuleViewset
+from school_subject.api.viewsets import SubjectViewset
 
 
 router = routers.DefaultRouter()
@@ -60,6 +61,11 @@ router.register(
     r'rule', 
     RuleViewset, 
     basename='Rules'
+)
+router.register(
+    r'subject', 
+    SubjectViewset, 
+    basename='Subject'
 )
 
 urlpatterns = [
