@@ -10,7 +10,8 @@ from user.permissions import UserPermission
     rule_list = [
         'grade_arrangement', # regra que define se as notas serão bimestrais, semestrais ou trimestrais.
         'grade_average', # regra que define a média escolar
-        '', #
+        'students_by_class', # quantidade de alunos por sala,
+        '': #,
     ]      
 
     arrangement_list = [
