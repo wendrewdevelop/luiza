@@ -1,3 +1,4 @@
+import json
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from rest_framework import status
@@ -7,12 +8,13 @@ from report_card_grades.api.serializers import ReportCardSerializer
 from user.permissions import UserPermission
 from user.models import User
 from rules.models import Rules
+from school_subject.models import Subject
 
 
 class ReportCardViewset(ModelViewSet):
     queryset = ReportCard.objects.all()
     serializer_class = ReportCardSerializer
-    # authentication_classes = [TokenAuthentication]
+    authentication_classes = [TokenAuthentication]
     # permission_classes = [UserPermission]
 
     def get_queryset(self):
@@ -27,6 +29,7 @@ class ReportCardViewset(ModelViewSet):
         data = request.data
         student_id = data.get('student')
         student = User.objects.filter(pk=student_id).first()
+        grade_level = None
 
         if self.request.user.user_type == 'student':
             return Response({'error': 'Você não tem autorização para realizar essa ação.'}, status=status.HTTP_403_FORBIDDEN)
@@ -35,11 +38,20 @@ class ReportCardViewset(ModelViewSet):
             rule_type='grade_average'
         ).first()
 
-        print(f'GRADE AVERAGE::: {grade_average_rule}')
+        subject_instance = Subject.objects.filter(
+            pk=data['subject']
+        ).first()
 
-        # report_card_instance = ReportCard.objects.create(
-        #     student=student,
-        #     grade=data['grade']
-        # )
-        # serializer = ReportCardSerializer(report_card_instance)
-        # return Response(serializer.data)
+        if data['grade'] >= json.loads(grade_average_rule.rule_action).get('grade_average'):
+            grade_level = '#0d9431'
+        else:
+            grade_level = '#f50000'
+                
+        report_card_instance = ReportCard.objects.create(
+            student=student,
+            grade=data['grade'],
+            grade_level=grade_level,
+            subject=subject_instance
+        )
+        serializer = ReportCardSerializer(report_card_instance)
+        return Response(serializer.data)
