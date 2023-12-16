@@ -25,9 +25,6 @@ class SchoolYear(models.Model):
         blank=False
     )
 
-    def __str__(self) -> str:
-        return self.year
-
     class Meta:
         verbose_name = 'school_year'
         verbose_name_plural = 'school_years'

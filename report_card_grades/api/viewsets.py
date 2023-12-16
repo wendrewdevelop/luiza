@@ -42,7 +42,7 @@ class ReportCardViewset(ModelViewSet):
             pk=data['subject']
         ).first()
 
-        if data['grade'] >= json.loads(grade_average_rule.rule_action).get('grade_average'):
+        if data['grade'] >= json.loads(grade_average_rule.rule_action):
             grade_level = '#0d9431'
         else:
             grade_level = '#f50000'

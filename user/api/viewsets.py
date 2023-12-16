@@ -10,13 +10,16 @@ from user.models import (
     User,
     Teacher,
     Student,
-    Admin
+    Admin,
+    StudentSchoolYear
 )
+from school_year.models import SchoolYear
 from user.api.serializers import (
     UserSerializer,
     StudentSerializer,
     TeacherSerializer,
-    AdminSerializer
+    AdminSerializer,
+    StudentSchoolYearSerializer
 )
 from user.permissions import UserPermission
 from user.models import User, Student, Teacher
@@ -108,3 +111,23 @@ class UserViewset(ModelViewSet):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=400)
+    
+    @action(detail=False, methods=['POST'])
+    def student_year(self, request):
+        if self.request.user.user_type != 'admin':
+            return Response({'error': 'Você não tem autorização para realizar essa ação.'}, status=status.HTTP_403_FORBIDDEN)
+        
+        year = SchoolYear.objects.filter(
+            year=request.data.get('year')
+        ).first()
+        student = Student.objects.filter(
+            pk=request.data.get('student')
+        ).first()
+        
+        user = StudentSchoolYear.objects.create(
+            student=student,
+            year=year
+        )
+        serializer = StudentSchoolYearSerializer(user)
+        
+        return Response(serializer.data)

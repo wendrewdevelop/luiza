@@ -33,19 +33,23 @@ class RuleViewset(ModelViewSet):
         data = request.data
         rule_type = data.get('rule_type')
         rule_action = data.get('rule_action')
-        arrangement = {f"{rule_type}": f"{rule_action}"}
-        description = None
 
-        match rule_type:
-            case 'grade_arrangement':
-                description = 'Regra criada para definir se as notas serão bimestrais, semestrais ou trimestrais.'
-            case 'grade_average':
-                description = 'Regra criada para definir a nota média.'
+        pipeline = {
+            "grade_arrangement": {
+                "description": "Regra criada para definir se as notas serão bimestrais, semestrais ou trimestrais."
+            },
+            "grade_average": {
+                "description": "Regra criada para definir a nota média."
+            },
+            "students_by_class": {
+                "description": "Regra criada para definir a quantidade maxima de alunos por sala."
+            },
+        }
 
         instance = Rules.objects.create(
             rule_type=rule_type,
-            rule_description=description,
-            rule_action=arrangement
+            rule_description=pipeline[rule_type]['description'],
+            rule_action=rule_action
         )
         instance.save()
         

@@ -19,12 +19,14 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework import routers
-from rest_framework_jwt.views import refresh_jwt_token
 from rest_framework.authtoken.views import obtain_auth_token
 from user.api.viewsets import UserViewset
 from report_card_grades.api.viewsets import ReportCardViewset
 from scheduler.api.viewsets import SchedulerViewset
-from classes.api.viewsets import VideoViewset
+from classes.api.viewsets import (
+    VideoViewset,
+    ClassViewset
+)
 from school_year.api.viewsets import SchoolYearViewset
 from live.urls import urlpatterns as livestream_urls
 from rules.api.viewsets import RuleViewset
@@ -72,6 +74,11 @@ router.register(
     r'administrative', 
     AdministrativeViewset, 
     basename='Administrative'
+)
+router.register(
+    r'class', 
+    ClassViewset, 
+    basename='Class'
 )
 
 urlpatterns = [

@@ -3,7 +3,8 @@ from user.models import (
     User,
     Student,
     Teacher,
-    Admin
+    Admin,
+    StudentSchoolYear
 )
 
 
@@ -36,4 +37,10 @@ class TeacherSerializer(serializers.ModelSerializer):
 class AdminSerializer(serializers.ModelSerializer):
     class Meta:
         model = Admin
+        fields = "__all__"
+
+
+class StudentSchoolYearSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = StudentSchoolYear
         fields = "__all__"

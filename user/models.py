@@ -35,9 +35,6 @@ class User(AbstractUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
-    def __str__(self):
-        return self.email
-
     class Meta:
         verbose_name = 'user'
         verbose_name_plural = 'users'
@@ -101,9 +98,6 @@ class Student(models.Model):
         blank=True,
         default='active'
     )
-
-    def __str__(self):
-        return f"Student: {self.user.email}"
 
 
 class Teacher(models.Model):
@@ -172,3 +166,23 @@ class Admin(models.Model):
 
     def __str__(self):
         return f"Admin: {self.user.email}"
+    
+
+class StudentSchoolYear(models.Model):
+    year = models.ForeignKey(
+        SchoolYear,
+        on_delete=models.PROTECT,
+        null=False,
+        blank=False
+    )
+    student = models.ForeignKey(
+        Student,
+        on_delete=models.PROTECT,
+        null=False,
+        blank=False
+    )
+
+    class Meta:
+        verbose_name = 'student_school_year'
+        verbose_name_plural = 'students_school_year'
+        db_table = 'tb_student_school_year'
