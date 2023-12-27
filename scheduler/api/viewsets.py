@@ -13,20 +13,20 @@ from user.models import User
 class SchedulerViewset(ModelViewSet):
     queryset = Scheduler.objects.all()
     serializer_class = SchedulerSerializer
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [UserPermission]
+    # authentication_classes = [TokenAuthentication]
+    # permission_classes = [UserPermission]
 
     def get_queryset(self):
         queryset = Scheduler.objects.all()
 
-        if self.request.user.user_type == 'student':
-            queryset = queryset.filter(
-                Q(visibility='public') | Q(visibility='private')
-            )
-        elif self.request.user.user_type == 'admin' or self.request.user.user_type == 'teacher':
-            queryset = queryset.filter(
-                visibility='public'
-            )
+        # if self.request.user.user_type == 'student':
+        #     queryset = queryset.filter(
+        #         Q(visibility='public') | Q(visibility='private')
+        #     )
+        # elif self.request.user.user_type == 'admin' or self.request.user.user_type == 'teacher':
+        #     queryset = queryset.filter(
+        #         visibility='public'
+        #     )
 
         return queryset
     

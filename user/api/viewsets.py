@@ -53,6 +53,7 @@ class UserViewset(ModelViewSet):
             user_type=data['user_type']
         )
         serializer = UserSerializer(user)
+
         return Response(serializer.data)
     
     @action(detail=False, methods=['PUT'])
@@ -131,3 +132,17 @@ class UserViewset(ModelViewSet):
         serializer = StudentSchoolYearSerializer(user)
         
         return Response(serializer.data)
+    
+
+class StudentViewset(ModelViewSet):
+    serializer_class = StudentSerializer
+    # authentication_classes = [TokenAuthentication]
+    # permission_classes = [UserPermission]
+
+    def get_queryset(self):
+        classes = self.request.query_params.get('classes', None)
+        queryset = Student.objects.prefetch_related(
+            'user'
+        ).filter(user__user_type='student')
+        
+        return queryset

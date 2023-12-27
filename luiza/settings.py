@@ -49,13 +49,15 @@ PROJECT_APPS = [
     'live',
     'rules',
     'school_subject',
-    'administrative'
+    'administrative',
+    'notifications'
 ]
 
 THIRD_PARTY_APPS= [
     'rest_framework',
     'rest_framework.authtoken',
-    'django_extensions'
+    'django_extensions',
+    'corsheaders'
 ]
 
 INSTALLED_APPS = DEFAULT_APPS + PROJECT_APPS + THIRD_PARTY_APPS
@@ -177,3 +179,9 @@ CHANNEL_LAYERS = {
         "BACKEND": "channels.layers.InMemoryChannelLayer"
     }
 }
+
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+    # Add other allowed origins as needed
+]

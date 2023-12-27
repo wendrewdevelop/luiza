@@ -20,7 +20,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework import routers
 from rest_framework.authtoken.views import obtain_auth_token
-from user.api.viewsets import UserViewset
+from user.api.viewsets import UserViewset, StudentViewset
 from report_card_grades.api.viewsets import ReportCardViewset
 from scheduler.api.viewsets import SchedulerViewset
 from classes.api.viewsets import (
@@ -32,6 +32,7 @@ from live.urls import urlpatterns as livestream_urls
 from rules.api.viewsets import RuleViewset
 from school_subject.api.viewsets import SubjectViewset
 from administrative.api.viewsets import AdministrativeViewset
+from notifications.api.viewsets import NotificationViewset
 
 
 router = routers.DefaultRouter()
@@ -79,6 +80,16 @@ router.register(
     r'class', 
     ClassViewset, 
     basename='Class'
+)
+router.register(
+    r'student', 
+    StudentViewset, 
+    basename='Student'
+)
+router.register(
+    r'notification', 
+    NotificationViewset, 
+    basename='Notification'
 )
 
 urlpatterns = [

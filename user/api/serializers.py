@@ -23,9 +23,12 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class StudentSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+    school_year_name = serializers.CharField(source='school_year.year', read_only=True)
+
     class Meta:
         model = Student
-        fields = "__all__"
+        fields = '__all__'
 
 
 class TeacherSerializer(serializers.ModelSerializer):
