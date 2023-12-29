@@ -1,4 +1,5 @@
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.authentication import TokenAuthentication
 from administrative.models import Administrative
 from administrative.api.serializers import AdministrativeSerializer
 from user.permissions import UserPermission
@@ -6,7 +7,8 @@ from user.permissions import UserPermission
 
 class AdministrativeViewset(ModelViewSet):
     serializer_class = AdministrativeSerializer
-    # permission_classes = [UserPermission]
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [UserPermission]
 
     def get_queryset(self):
         # if self.request.user

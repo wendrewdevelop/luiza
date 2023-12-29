@@ -15,7 +15,7 @@ class ReportCardViewset(ModelViewSet):
     queryset = ReportCard.objects.all()
     serializer_class = ReportCardSerializer
     authentication_classes = [TokenAuthentication]
-    # permission_classes = [UserPermission]
+    permission_classes = [UserPermission]
 
     def get_queryset(self):
         user_id = self.request.query_params.get('student_id', None)

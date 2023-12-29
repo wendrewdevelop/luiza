@@ -10,8 +10,8 @@ from user.permissions import UserPermission
 
 class SubjectViewset(ModelViewSet):
     serializer_class = SubjectSerializer
-    # authentication_classes = [TokenAuthentication]
-    # permission_classes = [UserPermission]
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [UserPermission]
 
     def get_queryset(self):
         return Subject.objects.all()

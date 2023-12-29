@@ -13,8 +13,8 @@ from user.models import User
 class NotificationViewset(ModelViewSet):
     queryset = Notification.objects.all()
     serializer_class = NotificationSerializer
-    # authentication_classes = [TokenAuthentication]
-    # permission_classes = [UserPermission]
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [UserPermission]
 
     def get_queryset(self):
         queryset = Notification.objects.all()

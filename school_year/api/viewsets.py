@@ -3,6 +3,7 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.decorators import action
 from rest_framework import filters
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
 from school_year.models import SchoolYear
 from school_year.api.serializers import SchoolYearSerializer
 from user.permissions import UserPermission
@@ -10,7 +11,8 @@ from user.permissions import UserPermission
 
 class SchoolYearViewset(ModelViewSet):
     serializer_class = SchoolYearSerializer
-    # permission_classes = [UserPermission]
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [UserPermission]
 
     def get_queryset(self):
         return SchoolYear.objects.all()

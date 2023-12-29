@@ -17,7 +17,7 @@ from school_year.models import SchoolYear
 
 class VideoViewset(ModelViewSet):
     serializer_class = VideoSerializer
-    # permission_classes = [UserPermission]
+    permission_classes = [UserPermission]
 
     def get_queryset(self):
         # if self.request.user

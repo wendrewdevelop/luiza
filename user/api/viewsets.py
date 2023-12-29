@@ -29,8 +29,8 @@ from user.api.serializers import UserSerializer
 class UserViewset(ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    # authentication_classes = [TokenAuthentication]
-    # permission_classes = [UserPermission]
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [UserPermission]
 
     def get_queryset(self):
         user_id = self.request.query_params.get('user_id', None)

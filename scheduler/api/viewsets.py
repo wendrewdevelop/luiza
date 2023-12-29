@@ -13,8 +13,8 @@ from user.models import User
 class SchedulerViewset(ModelViewSet):
     queryset = Scheduler.objects.all()
     serializer_class = SchedulerSerializer
-    # authentication_classes = [TokenAuthentication]
-    # permission_classes = [UserPermission]
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [UserPermission]
 
     def get_queryset(self):
         queryset = Scheduler.objects.all()

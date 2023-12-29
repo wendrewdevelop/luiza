@@ -1,6 +1,7 @@
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.decorators import action
+from rest_framework.authentication import TokenAuthentication
 from rules.models import Rules
 from rules.api.serializers import RuleSerializer
 from user.permissions import UserPermission
@@ -23,7 +24,8 @@ from user.permissions import UserPermission
 
 class RuleViewset(ModelViewSet):
     serializer_class = RuleSerializer
-    # permission_classes = [UserPermission]
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [UserPermission]
 
     def get_queryset(self):
         return Rules.objects.all()

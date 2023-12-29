@@ -50,7 +50,8 @@ PROJECT_APPS = [
     'rules',
     'school_subject',
     'administrative',
-    'notifications'
+    'notifications',
+    'inventory'
 ]
 
 THIRD_PARTY_APPS= [
